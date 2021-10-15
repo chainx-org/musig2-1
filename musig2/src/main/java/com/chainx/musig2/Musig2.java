@@ -21,7 +21,7 @@ public class Musig2 {
         return clib.get_round1_state(keypair);
     };
 
-    public static String getRound1Msg(String round1State) {
+    public static String getRound1Msg(Pointer round1State) {
         return clib.get_round1_msg(round1State);
     };
 
