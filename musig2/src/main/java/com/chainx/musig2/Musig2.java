@@ -29,7 +29,7 @@ public class Musig2 {
         return clib.get_round1_msg(round1State);
     };
 
-    public static Pointer getRound2Msg(Pointer round1State, String msg, String myPubkey, String[] pubkeys, String[] receivedRound1Msg){
+    public static String getRound2Msg(Pointer round1State, String msg, String myPubkey, String[] pubkeys, String[] receivedRound1Msg){
         return clib.get_round2_msg(round1State, msg, myPubkey, TextUtils.join("", pubkeys).toString(), TextUtils.join("", receivedRound1Msg).toString());
     };
 
