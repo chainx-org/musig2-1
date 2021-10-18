@@ -4,21 +4,23 @@ import com.sun.jna.Library;
 import com.sun.jna.Pointer;
 
 public interface CLibrary extends Library {
-    public Pointer get_my_keypair(String priv);
-
     public String get_my_pubkey(Pointer keypair);
 
     public String get_key_agg(String pubkeys);
 
-    public Pointer get_round1_state(Pointer keypair);
+    public Pointer get_round1_state(String priv);
+
+    public String encode_round1_state(Pointer round1State);
+
+    public Pointer decode_round1_state(String round1State);
 
     public String get_round1_msg(Pointer round1State);
 
-    public Pointer get_round2_state(Pointer round1State, String msg, String myPubkey, String pubkeys, String receivedRound1Msg);
+    public Pointer get_round2_msg(Pointer round1State, String msg, String myPubkey, String pubkeys, String receivedRound1Msg);
 
-    public String get_round2_r(Pointer round2State);
+    public String get_signature(String receivedRound2Msg);
 
-    public String get_round2_msg(Pointer round2State);
+    public String generate_threshold_pubkey(String pubkeys, byte threshold);
 
-    public String get_signature(Pointer round2State, String receivedRound2Msg, String R);
+    public String generate_control_block(String pubkeys, byte threshold, String aggPubkey);
 }
