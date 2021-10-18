@@ -4,7 +4,7 @@ import com.sun.jna.Library;
 import com.sun.jna.Pointer;
 
 public interface CLibrary extends Library {
-    public String get_my_pubkey(Pointer keypair);
+    public String get_my_pubkey(String priv);
 
     public String get_key_agg(String pubkeys);
 

@@ -5,7 +5,7 @@ import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 
 public class Musig2 {
-    public static String getMyPubkey(Pointer priv) {
+    public static String getMyPubkey(String priv) {
         return clib.get_my_pubkey(priv);
     };
 
