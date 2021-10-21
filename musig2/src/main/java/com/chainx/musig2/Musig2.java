@@ -13,8 +13,8 @@ public class Musig2 {
         return clib.get_key_agg(TextUtils.join("", pubkeys).toString());
     };
 
-    public static Pointer getRound1State(String priv) {
-        return clib.get_round1_state(priv);
+    public static Pointer getRound1State() {
+        return clib.get_round1_state();
     };
 
     public static String encodeRound1State(Pointer round1State) {
@@ -29,8 +29,8 @@ public class Musig2 {
         return clib.get_round1_msg(round1State);
     };
 
-    public static String getRound2Msg(Pointer round1State, String msg, String myPubkey, String[] pubkeys, String[] receivedRound1Msg){
-        return clib.get_round2_msg(round1State, msg, myPubkey, TextUtils.join("", pubkeys).toString(), TextUtils.join("", receivedRound1Msg).toString());
+    public static String getRound2Msg(Pointer round1State, String msg, String privkey, String[] pubkeys, String[] receivedRound1Msg){
+        return clib.get_round2_msg(round1State, msg, privkey, TextUtils.join("", pubkeys).toString(), TextUtils.join("", receivedRound1Msg).toString());
     };
 
     public static String getAggSignature(String[] receivedRound2Msg) {

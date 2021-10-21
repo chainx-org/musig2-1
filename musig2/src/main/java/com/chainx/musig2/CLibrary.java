@@ -8,7 +8,7 @@ public interface CLibrary extends Library {
 
     public String get_key_agg(String pubkeys);
 
-    public Pointer get_round1_state(String priv);
+    public Pointer get_round1_state();
 
     public String encode_round1_state(Pointer round1State);
 
@@ -16,7 +16,7 @@ public interface CLibrary extends Library {
 
     public String get_round1_msg(Pointer round1State);
 
-    public String get_round2_msg(Pointer round1State, String msg, String myPubkey, String pubkeys, String receivedRound1Msg);
+    public String get_round2_msg(Pointer round1State, String msg, String privkey, String pubkeys, String receivedRound1Msg);
 
     public String get_signature(String receivedRound2Msg);
 
