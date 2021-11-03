@@ -8,12 +8,19 @@ public class Musig2 {
     }
     
     public static native String get_my_pubkey(String jarg1);
+
     public static native long get_round1_state();
+
     public static native String encode_round1_state(long jarg1);
+
     public static native long decode_round1_state(String jarg1);
+
     public static native String get_round1_msg(long jarg1);
+
     public static native String get_round2_msg(long jarg1, String jarg2, String jarg3, String jarg4, String jarg5);
+
     public static native String get_signature(String jarg1);
+
     public static native String get_key_agg(String jarg1);
 
     public static String getMyPubkey(String priv) {
