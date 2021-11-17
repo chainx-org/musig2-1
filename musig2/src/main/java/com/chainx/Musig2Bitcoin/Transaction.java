@@ -31,6 +31,10 @@ public class Transaction {
 
     public static native String get_scirpt_pubkey(String addr);
 
+    public static native String get_spent_outputs(String prev_tx, long index);
+
+    public static native String add_spent_output(String spent_outputs, String prev_tx, long index);
+
     public static String generateSchnorrSignature(String message, String privkey) {
         return generate_schnorr_signature(message, privkey);
     }
@@ -74,5 +78,20 @@ public class Transaction {
 
     public static String buildTaprootTx(String tx, String signature, long input_index) {
         return build_raw_key_tx(tx, signature, input_index);
+    }
+
+    public static String generateSpentOutputs(String[] prev_txs, long[] indexs) {
+        if (prev_txs.length != indexs.length) {
+            return "prev_txs and indexs must be equal in length";
+        }
+        if (prev_txs.length == 0 || indexs.length == 0) {
+            return "prev_txs count must be greater than 0";
+        }
+
+        String spent_outputs = get_spent_outputs(prev_txs[0], indexs[0]);
+        for (int i = 1; i < prev_txs.length; i++) {
+            spent_outputs = add_spent_output(spent_outputs, prev_txs[i], indexs[i]);
+        }
+        return spent_outputs;
     }
 }
