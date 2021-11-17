@@ -8,8 +8,8 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-                groupId = 'com.chainx.musig2'
-                artifactId = 'musig2'
+                groupId = 'com.chainx.Musig2Bitcoin'
+                artifactId = 'Musig2Bitcoin'
                 version = '1.0.0'
             }
         }
