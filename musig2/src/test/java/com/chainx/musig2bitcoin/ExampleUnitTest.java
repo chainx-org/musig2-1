@@ -1,4 +1,4 @@
-package com.chainx.Musig2Bitcoin;
+package com.chainx.musig2bitcoin;
 
 import org.junit.Test;
 

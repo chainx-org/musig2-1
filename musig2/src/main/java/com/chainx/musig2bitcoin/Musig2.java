@@ -1,4 +1,4 @@
-package com.chainx.Musig2Bitcoin;
+package com.chainx.musig2bitcoin;
 
 import android.text.TextUtils;
 
