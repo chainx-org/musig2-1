@@ -11,7 +11,7 @@ public class Mast {
 
     public static native String generate_control_block(String jarg1, long jarg2, String jarg3);
 
-    public static String generateThresholdPubkey(String[] pubkeys, byte threshold, String network) {
+    public static String generateThresholdAddress(String[] pubkeys, byte threshold, String network) {
         return generate_threshold_pubkey(TextUtils.join("", pubkeys).toString(), threshold, network);
     }
 

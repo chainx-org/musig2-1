@@ -97,7 +97,7 @@ public class Transaction {
         return spent_outputs;
     }
 
-    public static String generateBtcAddress(String pubkey, String network) {
+    public static String getMyAddress(String pubkey, String network) {
         return generate_btc_address(pubkey, network);
     }
 }
