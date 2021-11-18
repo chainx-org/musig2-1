@@ -21,9 +21,10 @@ public class Transaction {
                                                     String agg_signature,
                                                     String agg_pubkey,
                                                     String control,
+                                                    String txid,
                                                     long input_index);
 
-    public static native String build_raw_key_tx(String base_tx, String signature, long input_index);
+    public static native String build_raw_key_tx(String base_tx, String signature, String txid, long input_index);
 
     public static native String generate_schnorr_signature(String message, String privkey);
 
@@ -31,9 +32,9 @@ public class Transaction {
 
     public static native String get_scirpt_pubkey(String addr);
 
-    public static native String get_spent_outputs(String prev_tx, long index);
+    public static native String get_spent_outputs(String prev_tx, long input_index);
 
-    public static native String add_spent_output(String spent_outputs, String prev_tx, long index);
+    public static native String add_spent_output(String spent_outputs, String prev_tx, long input_index);
 
     public static native String generate_btc_address(String pubkey, String network);
 
@@ -45,8 +46,8 @@ public class Transaction {
         return get_scirpt_pubkey(addr);
     }
 
-    public static String generateRawTx(String[] txids, long[] indexs, String[] addresses, long[] amounts){
-        if (txids.length != indexs.length) {
+    public static String generateRawTx(String[] txids, long[] input_indexs, String[] addresses, long[] amounts) {
+        if (txids.length != input_indexs.length) {
             return "txids and indexs must be equal in length";
         }
         if (addresses.length != amounts.length) {
@@ -59,9 +60,9 @@ public class Transaction {
             return "Output count must be greater than 0";
         }
 
-        String base_tx = get_base_tx(txids[0], indexs[0]);
+        String base_tx = get_base_tx(txids[0], input_indexs[0]);
         for (int i = 1; i < txids.length; i++) {
-            base_tx = add_input(base_tx, txids[i], indexs[i]);
+            base_tx = add_input(base_tx, txids[i], input_indexs[i]);
         }
         for (int i = 0; i < addresses.length; i++) {
             base_tx = add_output(base_tx, addresses[i], amounts[i]);
@@ -74,25 +75,25 @@ public class Transaction {
         return get_sighash(prev_tx, tx, input_index, agg_pubkey, sigversion);
     }
 
-    public static String buildThresholdTx(String tx, String agg_signature, String agg_pubkey, String control, long input_index) {
-        return build_raw_scirpt_tx(tx, agg_signature, agg_pubkey, control, input_index);
+    public static String buildThresholdTx(String tx, String agg_signature, String agg_pubkey, String control, String txid, long input_index) {
+        return build_raw_scirpt_tx(tx, agg_signature, agg_pubkey, control, txid, input_index);
     }
 
-    public static String buildTaprootTx(String tx, String signature, long input_index) {
-        return build_raw_key_tx(tx, signature, input_index);
+    public static String buildTaprootTx(String tx, String signature, String txid, long input_index) {
+        return build_raw_key_tx(tx, signature, txid, input_index);
     }
 
-    public static String generateSpentOutputs(String[] prev_txs, long[] indexs) {
-        if (prev_txs.length != indexs.length) {
+    public static String generateSpentOutputs(String[] prev_txs, long[] input_indexs) {
+        if (prev_txs.length != input_indexs.length) {
             return "prev_txs and indexs must be equal in length";
         }
-        if (prev_txs.length == 0 || indexs.length == 0) {
+        if (prev_txs.length == 0 || input_indexs.length == 0) {
             return "prev_txs count must be greater than 0";
         }
 
-        String spent_outputs = get_spent_outputs(prev_txs[0], indexs[0]);
+        String spent_outputs = get_spent_outputs(prev_txs[0], input_indexs[0]);
         for (int i = 1; i < prev_txs.length; i++) {
-            spent_outputs = add_spent_output(spent_outputs, prev_txs[i], indexs[i]);
+            spent_outputs = add_spent_output(spent_outputs, prev_txs[i], input_indexs[i]);
         }
         return spent_outputs;
     }
