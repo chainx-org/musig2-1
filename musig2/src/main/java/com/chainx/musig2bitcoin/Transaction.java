@@ -35,6 +35,8 @@ public class Transaction {
 
     public static native String add_spent_output(String spent_outputs, String prev_tx, long index);
 
+    public static native String generate_btc_address(String pubkey, String network);
+
     public static String generateSchnorrSignature(String message, String privkey) {
         return generate_schnorr_signature(message, privkey);
     }
@@ -93,5 +95,9 @@ public class Transaction {
             spent_outputs = add_spent_output(spent_outputs, prev_txs[i], indexs[i]);
         }
         return spent_outputs;
+    }
+
+    public static String generateBtcAddress(String pubkey, String network) {
+        return generate_btc_address(pubkey, network);
     }
 }
