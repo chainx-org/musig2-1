@@ -17,7 +17,7 @@ public class Transaction {
                                             String agg_pubkey,
                                             long sigversion);
 
-    public static native String build_raw_scirpt_tx(String base_tx,
+    public static native String build_raw_script_tx(String base_tx,
                                                     String agg_signature,
                                                     String agg_pubkey,
                                                     String control,
@@ -30,7 +30,7 @@ public class Transaction {
 
     public static native String get_my_privkey(String phrase, String pd_passphrase);
 
-    public static native String get_scirpt_pubkey(String addr);
+    public static native String get_script_pubkey(String addr);
 
     public static native String get_spent_outputs(String prev_tx, long input_index);
 
@@ -43,7 +43,7 @@ public class Transaction {
     }
 
     public static String getScriptPubkey(String addr) {
-        return get_scirpt_pubkey(addr);
+        return get_script_pubkey(addr);
     }
 
     public static String generateRawTx(String[] txids, long[] input_indexs, String[] addresses, long[] amounts) {
@@ -76,7 +76,7 @@ public class Transaction {
     }
 
     public static String buildThresholdTx(String tx, String agg_signature, String agg_pubkey, String control, String txid, long input_index) {
-        return build_raw_scirpt_tx(tx, agg_signature, agg_pubkey, control, txid, input_index);
+        return build_raw_script_tx(tx, agg_signature, agg_pubkey, control, txid, input_index);
     }
 
     public static String buildTaprootTx(String tx, String signature, String txid, long input_index) {
