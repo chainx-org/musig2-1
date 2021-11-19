@@ -6,7 +6,9 @@ public class Musig2 {
     static {
         System.loadLibrary("musig2_dll");
     }
-    
+
+    public static native String get_my_privkey(String phrase, String pd_passphrase);
+
     public static native String get_my_pubkey(String jarg1);
 
     public static native long get_round1_state();
@@ -22,6 +24,10 @@ public class Musig2 {
     public static native String get_signature(String jarg1);
 
     public static native String get_key_agg(String jarg1);
+
+    public static String getMyPrivkey(String phrase, String pd_passphrase) {
+      return  get_my_privkey(phrase, pd_passphrase);
+    };
 
     public static String getMyPubkey(String priv) {
         return get_my_pubkey(priv);

@@ -28,8 +28,6 @@ public class Transaction {
 
     public static native String generate_schnorr_signature(String message, String privkey);
 
-    public static native String get_my_privkey(String phrase, String pd_passphrase);
-
     public static native String get_script_pubkey(String addr);
 
     public static native String get_spent_outputs(String prev_tx, long input_index);
