@@ -5,14 +5,14 @@ public class Transaction {
         System.loadLibrary("musig2_dll");
     }
 
-    public static native String get_base_tx(String txid, long index);
+    public static native String get_base_tx(String prev_tx, String txid, long index);
 
-    public static native String add_input(String base_tx, String txid, long index);
+    public static native String add_input(String base_tx, String prev_tx, String txid, long index);
 
     public static native String add_output(String base_tx, String address, long amount);
 
-    public static native String get_sighash(String prev_tx,
-                                            String tx,
+    public static native String get_sighash(String base_tx,
+                                            String txid,
                                             long input_index,
                                             String agg_pubkey,
                                             long sigversion);
@@ -44,9 +44,12 @@ public class Transaction {
         return get_script_pubkey(addr);
     }
 
-    public static String generateRawTx(String[] txids, long[] input_indexs, String[] addresses, long[] amounts) {
+    public static String generateRawTx(String[] prev_txs, String[] txids, long[] input_indexs, String[] addresses, long[] amounts) {
         if (txids.length != input_indexs.length) {
             return "txids and indexs must be equal in length";
+        }
+        if (txids.length != prev_txs.length) {
+            return "txids and prev_txs must be equal in length";
         }
         if (addresses.length != amounts.length) {
             return "addresses and amounts must be equal in length";
@@ -58,9 +61,9 @@ public class Transaction {
             return "Output count must be greater than 0";
         }
 
-        String base_tx = get_base_tx(txids[0], input_indexs[0]);
+        String base_tx = get_base_tx(prev_txs[0], txids[0], input_indexs[0]);
         for (int i = 1; i < txids.length; i++) {
-            base_tx = add_input(base_tx, txids[i], input_indexs[i]);
+            base_tx = add_input(base_tx, prev_txs[i], txids[i], input_indexs[i]);
         }
         for (int i = 0; i < addresses.length; i++) {
             base_tx = add_output(base_tx, addresses[i], amounts[i]);
@@ -69,8 +72,8 @@ public class Transaction {
         return base_tx;
     }
 
-    public static String getSighash(String prev_tx, String tx, long input_index, String agg_pubkey, long sigversion) {
-        return get_sighash(prev_tx, tx, input_index, agg_pubkey, sigversion);
+    public static String getSighash(String tx, String txid, long input_index, String agg_pubkey, long sigversion) {
+        return get_sighash(tx, txid, input_index, agg_pubkey, sigversion);
     }
 
     public static String buildThresholdTx(String tx, String agg_signature, String agg_pubkey, String control, String txid, long input_index) {
