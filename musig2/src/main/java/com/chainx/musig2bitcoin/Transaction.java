@@ -17,6 +17,8 @@ public class Transaction {
                                             String agg_pubkey,
                                             long sigversion);
 
+    public static native String get_unsigned_tx(String base_tx);
+
     public static native String build_raw_script_tx(String base_tx,
                                                     String agg_signature,
                                                     String agg_pubkey,
@@ -74,6 +76,10 @@ public class Transaction {
 
     public static String getSighash(String tx, String txid, long input_index, String agg_pubkey, long sigversion) {
         return get_sighash(tx, txid, input_index, agg_pubkey, sigversion);
+    }
+
+    public static String getUnsignedTx(String tx) {
+        return get_unsigned_tx(tx);
     }
 
     public static String buildThresholdTx(String tx, String agg_signature, String agg_pubkey, String control, String txid, long input_index) {
