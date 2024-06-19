@@ -15,7 +15,8 @@ public class Transaction {
                                             String txid,
                                             long input_index,
                                             String agg_pubkey,
-                                            long sigversion);
+                                            long sigversion,
+                                            String protocol);
 
     public static native String get_unsigned_tx(String base_tx);
 
@@ -24,7 +25,8 @@ public class Transaction {
                                                     String agg_pubkey,
                                                     String control,
                                                     String txid,
-                                                    long input_index);
+                                                    long input_index
+                                                    String protocol);
 
     public static native String build_raw_key_tx(String base_tx, String signature, String txid, long input_index);
 
@@ -74,16 +76,16 @@ public class Transaction {
         return base_tx;
     }
 
-    public static String getSighash(String tx, String txid, long input_index, String agg_pubkey, long sigversion) {
-        return get_sighash(tx, txid, input_index, agg_pubkey, sigversion);
+    public static String getSighash(String tx, String txid, long input_index, String agg_pubkey, long sigversion, String protocol) {
+        return get_sighash(tx, txid, input_index, agg_pubkey, sigversion, protocol);
     }
 
     public static String getUnsignedTx(String tx) {
         return get_unsigned_tx(tx);
     }
 
-    public static String buildThresholdTx(String tx, String agg_signature, String agg_pubkey, String control, String txid, long input_index) {
-        return build_raw_script_tx(tx, agg_signature, agg_pubkey, control, txid, input_index);
+    public static String buildThresholdTx(String tx, String agg_signature, String agg_pubkey, String control, String txid, long input_index, String protocol) {
+        return build_raw_script_tx(tx, agg_signature, agg_pubkey, control, txid, input_index, protocol);
     }
 
     public static String buildTaprootTx(String tx, String signature, String txid, long input_index) {

@@ -7,15 +7,15 @@ public class Mast {
         System.loadLibrary("musig2_dll");
     }
 
-    public static native String generate_threshold_pubkey(String jarg1, long jarg2);
+    public static native String generate_threshold_pubkey(String jarg1, long jarg2, String protocol);
 
-    public static native String generate_control_block(String jarg1, long jarg2, String jarg3);
+    public static native String generate_control_block(String jarg1, long jarg2, String jarg3, String protocol);
 
-    public static String generateThresholdPubkey(String[] pubkeys, long threshold) {
-        return generate_threshold_pubkey(TextUtils.join("", pubkeys).toString(), threshold);
+    public static String generateThresholdPubkey(String[] pubkeys, long threshold, String protocol) {
+        return generate_threshold_pubkey(TextUtils.join("", pubkeys).toString(), threshold, protocol);
     }
 
-    public static String generateControlBlock(String[] pubkeys, long threshold, String sigAggPubkey) {
-        return generate_control_block(TextUtils.join("", pubkeys).toString(), threshold, sigAggPubkey);
+    public static String generateControlBlock(String[] pubkeys, long threshold, String sigAggPubkey, String protocol) {
+        return generate_control_block(TextUtils.join("", pubkeys).toString(), threshold, sigAggPubkey, protocol);
     }
 }
