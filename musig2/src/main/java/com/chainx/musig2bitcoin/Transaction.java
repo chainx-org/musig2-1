@@ -25,7 +25,7 @@ public class Transaction {
                                                     String agg_pubkey,
                                                     String control,
                                                     String txid,
-                                                    long input_index
+                                                    long input_index,
                                                     String protocol);
 
     public static native String build_raw_key_tx(String base_tx, String signature, String txid, long input_index);
